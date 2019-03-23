@@ -5,14 +5,14 @@ describe('Tests aula 22/03', () => {
 		browser.get('http://automationpractice.com/index.php');
 	});
 
-	/*it('Should add item to cart', () => {
+	it('Should add item to cart', () => {
 		element(by.css('.blockbestsellers:nth-child(1)')).click();
 		element(by.css('#blockbestsellers > .ajax_block_product:nth-child(1) .replace-2x')).click();
 		element(by.name('Submit')).click();
 		var productAddedElement = element(by.css('h2:nth-child(2)'));
 		var expectedConditions = protractor.ExpectedConditions;
 		browser.wait(expectedConditions.textToBePresentInElement(productAddedElement, 'Product successfully added to your shopping cart', 2000))
-	});*/
+	});
 
 	it('Should block checkout if email not valid', () => {
 		element(by.css('.blockbestsellers:nth-child(1)')).click();
@@ -29,4 +29,28 @@ describe('Tests aula 22/03', () => {
 		var errorElement = element(by.css('.alert ul li, .alert ol li'));
 		browser.wait(expectedConditions.textToBePresentInElement(errorElement, 'Invalid email address.', 1000))
 	});
+
+	it('Should clear an item at cart', () => {
+		element(by.css('.blockbestsellers:nth-child(1)')).click();
+		element(by.css('#blockbestsellers > .ajax_block_product:nth-child(1) .replace-2x')).click();
+		element(by.name('Submit')).click();
+		var productAddedElement = element(by.css('h2:nth-child(2)'));
+		var expectedConditions = protractor.ExpectedConditions;
+		browser.wait(expectedConditions.textToBePresentInElement(productAddedElement, 'Product successfully added to your shopping cart', 2000))
+		element(by.css('.button.button-medium span')).click();
+		element(by.css('.icon-trash')).click();
+		var productRemovedElement = element(by.css('.alert'));
+		var expectedConditions = protractor.ExpectedConditions;
+		browser.wait(expectedConditions.textToBePresentInElement(productRemovedElement, 'Your shopping cart is empty.', 2000))
+	});
+
+	it('Should search an item and find equal or similar', () => {
+		element(by.id('search_query_top')).sendKeys('dress');
+		element(by.css('.button-search')).click();
+		element(by.css('.ajax_block_product:nth-child(1) .replace-2x')).click();
+		const title = element(by.css('.pb-center-column h1')).getText();
+		expect(title).toEqual('Printed Summer Dress');
+	});
+
+
 });
