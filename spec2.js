@@ -6,18 +6,10 @@ describe('Tests spec2', () => {
     });
 
     it('Should redirect page when buy', () => {
-        element(by.css('homeslider-container:nth-child(2) .btn')).click();
+        element(by.css('#homepage-slider .bx-wrapper .bx-next')).click();
+        element(by.css('#homepage-slider')).click();
         var titlePage = browser.getTitle();
-        var expectedConditions = protractor.ExpectedConditions;
-        browser.wait(expectedConditions.textToBePresentInElement(titlePage, 'Create and develop your business with PrestaShop', 2000))
-    });
-
-    it('Should search a item and find equal or similar', () => {
-        element(by.id('search_query_top')).sendKeys("dress");
-        element(by.name('Submit')).click();
-        var resultPage = element(by.css('#center_column > h1 > span.heading-counter')).getText();
-        var expectedConditions = protractor.ExpectedConditions;
-        browser.wait(expectedConditions.textToBePresentInElement(resultPage, '7 results have been found.', 2000))
+        expect(titlePage).toEqual('Create and develop your business with PrestaShop');
     });
 
     it('Should see product detail', () => {
