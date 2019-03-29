@@ -13,10 +13,8 @@ describe('Tests spec2', () => {
     });
 
     it('Should see product detail', () => {
-        element(by.css('.blockbestsellers:nth-child(1)')).click();
-        element(by.css('#blockbestsellers > .ajax_block_product:nth-child(1) .replace-2x')).click();
-        var titlePage = browser.getTitle();
-        var expectedConditions = protractor.ExpectedConditions;
-        browser.wait(expectedConditions.textToBePresentInElement(titlePage, 'Printed Chiffon Dress - My Store', 2000))
+        element(by.css('#block_top_menu > ul > li:nth-child(2) > a')).click();
+        var expectedConditions= element(by.css('#center_column > h1 > span.heading-counter'));
+        expect(expectedConditions.getText()).toEqual('There are 5 products.');   
     });
 });
